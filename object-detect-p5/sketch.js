@@ -29,8 +29,9 @@ new p5((sketch) => {
 
     // Display status message
     sketch.fill(255);
+    sketch.textSize(32);
     sketch.noStroke();
-    sketch.text(statusMsg, 10, 20);
+    sketch.text(statusMsg, 10, 32);
 
     // If detections are available, display them
     if (detections.length > 0) {
@@ -54,11 +55,8 @@ new p5((sketch) => {
     detections.forEach((d) => {
       const { box, label } = d;
       const { xmax, xmin, ymax, ymin } = box;
-
-      // Generate a random color for the box
-      const boxColor = sketch.color(0);
       // Draw the box
-      sketch.stroke(boxColor);
+      sketch.stroke(0);
       sketch.strokeWeight(2);
       sketch.noFill();
       sketch.rect(
@@ -68,10 +66,9 @@ new p5((sketch) => {
         (ymax - ymin) * sketch.height
       );
 
-      // Draw the label
-      sketch.fill(boxColor);
+      sketch.fill(0);
       sketch.noStroke();
-      sketch.textSize(16);
+      sketch.textSize(12);
       sketch.text(label, xmin * sketch.width, ymin * sketch.height - 5);
     });
   }
