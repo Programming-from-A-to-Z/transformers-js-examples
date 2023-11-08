@@ -1,5 +1,7 @@
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0';
 
+let summarizer, generator, classifier;
+
 window.addEventListener('load', () => {
   document.getElementById('summarize').addEventListener('click', summarize);
   document.getElementById('generate').addEventListener('click', generate);
@@ -11,10 +13,12 @@ const outputElement = document.getElementById('output');
 
 async function summarize() {
   let text = document.getElementById('inputText').value;
-  updateStatus('Loading summarization model...');
-  let generator = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+  if (!summarizer) {
+    updateStatus('Loading summarization model...');
+    summarizer = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+  }
   updateStatus('Summarizing...');
-  let output = await generator(text, {
+  let output = await summarizer(text, {
     max_new_tokens: 100,
   });
   console.log(output);
@@ -23,8 +27,10 @@ async function summarize() {
 
 async function generate() {
   let text = document.getElementById('inputText').value;
-  updateStatus('Loading generation model...');
-  let generator = await pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-783M');
+  if (!generator) {
+    updateStatus('Loading generation model...');
+    generator = await pipeline('text2text-generation', 'Xenova/LaMini-Flan-T5-783M');
+  }
   updateStatus('Generating...');
   let output = await generator(text, {
     max_new_tokens: 100,
@@ -35,8 +41,10 @@ async function generate() {
 
 async function classify() {
   let text = document.getElementById('inputText').value;
-  updateStatus('Loading classification model...');
-  let classifier = await pipeline('text-classification', 'Xenova/toxic-bert');
+  if (!classifier) {
+    updateStatus('Loading classification model...');
+    classifier = await pipeline('text-classification', 'Xenova/toxic-bert');
+  }
   updateStatus('Classifying...');
   let results = await classifier(text, { topk: null });
 
