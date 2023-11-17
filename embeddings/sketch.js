@@ -14,13 +14,6 @@ async function getEmbeddings(sentences) {
 // Cosine Similarity Functions
 function dotProduct(vecA, vecB) {
   let dot = vecA.reduce((sum, val, i) => sum + val * vecB[i], 0);
-  if (!dot) {
-    console.log(vecA.length);
-    console.log(vecB.length);
-    console.log(vecA);
-    console.log(vecB);
-    console.log(dot);
-  }
   return dot;
 }
 
