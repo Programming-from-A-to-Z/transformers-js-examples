@@ -35,11 +35,12 @@ function cosineSimilarity(vecA, vecB) {
 let comparison;
 
 const sentences = [
-  'The train goes choo choo!',
-  'Good evening!',
-  'The cat meows',
-  'Good morning!',
-  'The dog barks',
+  'What color is the sky?',
+  'What is an apple?',
+  'The sky is blue.',
+  'What does the fox say?',
+  'An apple is a fruit.',
+  'I have no idea.',
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
