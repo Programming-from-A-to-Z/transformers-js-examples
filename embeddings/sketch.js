@@ -1,16 +1,12 @@
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0';
 
 async function getEmbeddings(sentences) {
-  let extractor = await pipeline('feature-extraction', 'Xenova/bert-base-uncased', {
-    revision: 'default',
-  });
+  const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
   let embeddings = [];
   for (let sentence of sentences) {
-    let output = await extractor(sentence);
-    let { data, dims } = output;
-    let embedding = data.slice(0, dims[2]);
-    embeddings.push(embedding);
+    let output = await extractor(sentence, { pooling: 'mean', normalize: true });
+    embeddings.push(output.data);
   }
   return embeddings;
 }
@@ -40,9 +36,10 @@ let comparison;
 
 const sentences = [
   'The train goes choo choo!',
-  'To be or not to be.',
-  'AAAAAAAAAAAAAAAAAH',
-  'The cat meows.',
+  'Good evening!',
+  'The cat meows',
+  'Good morning!',
+  'The dog barks',
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
