@@ -122,7 +122,6 @@ p5.Geometry
 3D Models
 loadModel()
 model()
- 
 vertexNormal()
 Constants
 HALF_PI
@@ -181,7 +180,6 @@ createFramebuffer()
 blendMode()
 drawingContext
 setAttributes()
- 
 p5.Framebuffer
 Foundation
 let
