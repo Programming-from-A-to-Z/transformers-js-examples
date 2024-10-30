@@ -23,9 +23,12 @@ async function setup() {
 
   // Load the Transformers.js model pipeline
   let pipeline = await loadTransformers();
-  generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', {
-    dtype: 'q4',
+  generator = await pipeline('text-generation', 'onnx-community/Llama-3.2-1B-Instruct-q4f16', {
+    dtype: 'q4f16',
     device: 'webgpu',
+    progress_callback: (x) => {
+      console.log(x);
+    },
   });
 }
 
