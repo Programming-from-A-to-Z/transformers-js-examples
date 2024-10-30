@@ -1,5 +1,5 @@
-// Introduction to Machine Learning for the Arts
-// https://github.com/ml5js/Intro-ML-Arts-IMA-F24
+// Programming A to Z, Fall 2024
+// https://github.com/Programming-from-A-to-Z/A2Z-F24
 
 let conversationHistory = [];
 let inputBox;
@@ -39,6 +39,7 @@ async function sendMessage() {
     try {
       // Generate a response based on the input prompt
       const output = await generator(conversationHistory, { max_new_tokens: 128 });
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
       const reply = output[0].generated_text.at(-1).content;
       conversationHistory.push({ role: 'assistant', content: reply });
       chatLog = `Chatbot: ${reply}</br></br>` + chatLog;

@@ -13,9 +13,13 @@ async function setup() {
   // Load the Transformers.js model pipeline with async/await
   let pipeline = await loadTransformers();
 
+  // Try
+  // https://huggingface.co/HuggingFaceTB/SmolLM-135M
+  // https://huggingface.co/HuggingFaceTB/SmolLM-360M
+
   // Create a text generation pipeline with specific model and options
-  generator = await pipeline('text-generation', 'onnx-community/Llama-3.2-1B-Instruct-q4f16', {
-    dtype: 'q4f16',
+  generator = await pipeline('text-generation', 'HuggingFaceTB/SmolLM-135M', {
+    dtype: 'q4',
     device: 'webgpu',
     progress_callback: (x) => {
       console.log(x);
@@ -31,19 +35,11 @@ async function setup() {
 async function generateText() {
   // Ensure the model is loaded
   if (generator) {
-    // Define the prompt structure for the text generation model
-    const messages = [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'user', content: inputText.value() },
-    ];
-
-    // Generate a response based on the input prompt
-    const output = await generator(messages, { max_new_tokens: 128 });
+    // Complete the user's text
+    const output = await generator(inputText.value(), { max_new_tokens: 128 });
     console.log(output);
-
     // Extract and display the generated text
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
-    let outputText = output[0].generated_text.at(-1).content;
+    let outputText = output[0].generated_text;
     background(240);
     text(outputText, 10, 10, width - 20, height - 20);
   } else {

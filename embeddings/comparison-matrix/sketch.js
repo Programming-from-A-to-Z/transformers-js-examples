@@ -1,3 +1,6 @@
+// Programming A to Z
+// https://github.com/Programming-from-A-to-Z/A2Z-F24
+
 // Function to load transformers.js dynamically
 async function loadTransformers() {
   try {
