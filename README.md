@@ -2,27 +2,32 @@
 
 ## Overview
 
-Single page demonstration on running machine learning NLP models in the browser with transformers.js.
+This repository contains several demonstrations of running machine learning NLP models directly in the browser using transformers.js.
 
-### 1. Comparison Matrix
+### 1. Embeddings
 
-Visualizes the cosine similarity between sentences and p5.js for rendering a matrix.
+Embeds sentences using `Xenova/all-MiniLM-L6-v2` and visualizes the results in two different contexts:
 
-- Feature Extraction (embeddings): Xenova/all-MiniLM-L6-v2
+- **Comparison Matrix**: Visualizes the cosine similarity between different sentences using p5.js to render a matrix.
+- **Clustering**: Plots sentence embeddings in a two-dimensional space with umap-js for dimensionality reduction.
 
-### 2. Clustering
+- Feature Extraction (embeddings): `Xenova/all-MiniLM-L6-v2`
 
-Embeds sentences using `Xenova/all-MiniLM-L6-v2` and plots them in a two-dimensional space with umap-js dimensionality reduction.
+### 2. Language Models
 
-- Feature Extraction (embeddings): Xenova/all-MiniLM-L6-v2
+A set of demos using language models to generate or complete text interactively in the browser.
 
-### 3. Other Model Demos
+- **Chatbot Demo**: Implements a simple chatbot using `onnx-community/Qwen2.5-0.5B-Instruct`.
+- **Text Generation**: Generate text using various models including `onnx-community/Llama-3.2-1B-Instruct-q4f16` and `HuggingFaceTB/SmolLM-135M`.
 
-A few demos using other models from transformers.js.
+### 3. Vision Models
 
-- Summarization: Xenova/distilbart-cnn-6-6
-- Text Generation: Xenova/LaMini-Flan-T5-783M
-- Text Classification: Xenova/toxic-bert
+- **Depth Estimation**: Estimates depth from an image using `onnx-community/depth-anything-v2-small` and visualizes it using p5.js.
+- **Object Detection**: Detects objects in images and video in real-time using `Xenova/detr-resnet-50` with p5.js for visualization.
+
+### 4. Whisper
+
+Implements a real-time audio transcription system using `Xenova/whisper-tiny.en`.
 
 ### Example Code
 
@@ -57,11 +62,22 @@ For further information and a comprehensive list of supported tasks and models, 
 
 The [Transformers.js Model Hub](https://huggingface.co/models?library=transformers.js) lists models compatible with the library, searchable by tasks.
 
-## p5.js Integration and Instance Mode
+## p5.js Integration and Usage
 
-To integrate transformers.js with p5.js, instance mode is required to enable compatibility with ES6 import statements required by transformers.js.
+To integrate transformers.js with p5.js, instance mode can be used to enable compatibility with ES6 import statements required by transformers.js. However, dynamic import statements can also be used directly with p5.js as follows.
 
-[Learn more about p5.js instance mode in this wiki](https://github.com/processing/p5.js/wiki/Global-and-instance-mode) or [instance mode video tutorial](https://youtu.be/Su792jEauZg).
+### Example of Loading Transformers.js
+
+```javascript
+// Function to load transformers.js dynamically
+async function loadTransformers() {
+  console.log('Loading transformers.js...');
+  const module = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers');
+  const { pipeline } = module;
+  console.log('Transformers.js loaded successfully.');
+  return pipeline;
+}
+```
 
 ## What is UMAP?
 
